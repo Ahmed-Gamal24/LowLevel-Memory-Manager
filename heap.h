@@ -1,6 +1,6 @@
 #pragma once
 
-#include<vector>
+
 #include"memoryOperators.h"
 
 const int NAMELENGTH = 30;
@@ -9,18 +9,18 @@ class heap{
     private:
         char name[NAMELENGTH];
         int numOfAllocations ;
+        int nextValidAllocId;
         size_t totalAllocatedSize;
-        vector<allocHeader*> allocations;
+        allocHeader* pListHead;
+        allocHeader* lastAdedHeader;
+        
         
         public:
         heap(const char* name);
-        
-
         const char* getName()const;
-
-        int nextValidAllocNumber();
-
+        int nextValidAllocID();
         void AddAllocation(size_t size, allocHeader* allocHead);
-        void RemoveAllocation(size_t size);
-
+        void RemoveAllocation(allocHeader* allocHead);
+        int getMemoryBookMark();
+        void reportMemoryLeaks(int bookMark1, int bookMark2);
 };

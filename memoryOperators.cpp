@@ -13,7 +13,7 @@ const uint32_t MEMSYSTEM_ENDMARKER = 0xBAADF00Du;
 
 struct allocHeader{
     uint32_t signature;
-    int allocNum;
+    int allocID;
     int size;
     heap* pointerHeap;
     allocHeader * pNext;
@@ -31,7 +31,7 @@ void * operator new(size_t size, heap * pointerHeap){
     pHeader->signature = MEMSYSTEM_SIGNATURE;
     pHeader->pointerHeap = pointerHeap;
     pHeader->size = size;
-    pHeader->allocNum = pointerHeap->nextValidAllocNumber();
+    pHeader->allocID = pointerHeap->nextValidAllocID();
     allocCounterForAllHeaps++;
   
     char * startMemBlock = pointerMemory + sizeof(allocHeader);
@@ -44,9 +44,10 @@ void * operator new(size_t size, heap * pointerHeap){
 }
 
 void operator delete (void * pointerMemory) {
+    allocCounterForAllHeaps--;
     allocHeader * pHeader = (allocHeader *) ( (char *)pointerMemory - sizeof(allocHeader) );
     int * endMarker = (int*) ((char*)pointerMemory + pHeader->size);
     assert (*endMarker == MEMSYSTEM_ENDMARKER);
-    pHeader->pointerHeap->RemoveAllocation(pHeader->size);
+    pHeader->pointerHeap->RemoveAllocation(pHeader);
     free(pHeader);
 }
