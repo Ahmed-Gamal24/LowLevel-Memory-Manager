@@ -3,6 +3,7 @@
 #include <cassert>
 
 #include"heap.h"
+#include"memoryOperators.h"
 
 using namespace std;
 

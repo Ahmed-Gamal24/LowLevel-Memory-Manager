@@ -2,6 +2,7 @@
 
 
 #include"memoryOperators.h"
+#include"memoryOperators.cpp"
 
 const int NAMELENGTH = 30;
 

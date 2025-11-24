@@ -1,4 +1,4 @@
-#include"object_player.h"
+#include"player.h"
 #include"memoryOperators.h"
 
 palyer::palyer(){
